@@ -8,22 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		D558CC87208EA65F005A4F85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CC86208EA65F005A4F85 /* AppDelegate.swift */; };
-		D558CC89208EA65F005A4F85 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CC88208EA65F005A4F85 /* ViewController.swift */; };
+		D558CC89208EA65F005A4F85 /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CC88208EA65F005A4F85 /* ShoppingViewController.swift */; };
 		D558CC8C208EA65F005A4F85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D558CC8A208EA65F005A4F85 /* Main.storyboard */; };
 		D558CC8F208EA65F005A4F85 /* AylaFernandes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D558CC8D208EA65F005A4F85 /* AylaFernandes.xcdatamodeld */; };
 		D558CC91208EA65F005A4F85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D558CC90208EA65F005A4F85 /* Assets.xcassets */; };
 		D558CC94208EA65F005A4F85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D558CC92208EA65F005A4F85 /* LaunchScreen.storyboard */; };
+		D558CC9C208EC8ED005A4F85 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CC9B208EC8ED005A4F85 /* SettingsViewController.swift */; };
+		D558CC9E208EC933005A4F85 /* TaxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CC9D208EC933005A4F85 /* TaxesViewController.swift */; };
+		D558CCA620902C70005A4F85 /* AddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCA520902C70005A4F85 /* AddEditViewController.swift */; };
+		D558CCAA209044D3005A4F85 /* UIViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCA9209044D3005A4F85 /* UIViewController+CoreData.swift */; };
+		D558CCAF20914160005A4F85 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCAE20914160005A4F85 /* ProductTableViewController.swift */; };
+		D558CCB12091418C005A4F85 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCB02091418C005A4F85 /* ProductTableViewCell.swift */; };
+		D5AD1685209BEC27003E1182 /* gift.png in Resources */ = {isa = PBXBuildFile; fileRef = D5AD1684209BEC27003E1182 /* gift.png */; };
+		D5AD1688209C2016003E1182 /* StatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD1687209C2016003E1182 /* StatesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D558CC83208EA65F005A4F85 /* AylaFernandes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AylaFernandes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D558CC86208EA65F005A4F85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D558CC88208EA65F005A4F85 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D558CC88208EA65F005A4F85 /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
 		D558CC8B208EA65F005A4F85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D558CC8E208EA65F005A4F85 /* AylaFernandes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AylaFernandes.xcdatamodel; sourceTree = "<group>"; };
 		D558CC90208EA65F005A4F85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D558CC93208EA65F005A4F85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D558CC95208EA65F005A4F85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D558CC9B208EC8ED005A4F85 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D558CC9D208EC933005A4F85 /* TaxesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxesViewController.swift; sourceTree = "<group>"; };
+		D558CCA520902C70005A4F85 /* AddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewController.swift; sourceTree = "<group>"; };
+		D558CCA9209044D3005A4F85 /* UIViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CoreData.swift"; sourceTree = "<group>"; };
+		D558CCAE20914160005A4F85 /* ProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		D558CCB02091418C005A4F85 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		D5AD1684209BEC27003E1182 /* gift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift.png; sourceTree = "<group>"; };
+		D5AD1687209C2016003E1182 /* StatesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +72,10 @@
 		D558CC85208EA65F005A4F85 /* AylaFernandes */ = {
 			isa = PBXGroup;
 			children = (
+				D5AD1684209BEC27003E1182 /* gift.png */,
+				D5AD1686209BEC2F003E1182 /* images */,
+				D558CCAD20914080005A4F85 /* Controllers */,
 				D558CC86208EA65F005A4F85 /* AppDelegate.swift */,
-				D558CC88208EA65F005A4F85 /* ViewController.swift */,
 				D558CC8A208EA65F005A4F85 /* Main.storyboard */,
 				D558CC90208EA65F005A4F85 /* Assets.xcassets */,
 				D558CC92208EA65F005A4F85 /* LaunchScreen.storyboard */,
@@ -65,6 +83,28 @@
 				D558CC8D208EA65F005A4F85 /* AylaFernandes.xcdatamodeld */,
 			);
 			path = AylaFernandes;
+			sourceTree = "<group>";
+		};
+		D558CCAD20914080005A4F85 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D558CCA9209044D3005A4F85 /* UIViewController+CoreData.swift */,
+				D558CC88208EA65F005A4F85 /* ShoppingViewController.swift */,
+				D558CC9B208EC8ED005A4F85 /* SettingsViewController.swift */,
+				D558CCA520902C70005A4F85 /* AddEditViewController.swift */,
+				D558CC9D208EC933005A4F85 /* TaxesViewController.swift */,
+				D558CCB02091418C005A4F85 /* ProductTableViewCell.swift */,
+				D558CCAE20914160005A4F85 /* ProductTableViewController.swift */,
+				D5AD1687209C2016003E1182 /* StatesTableViewCell.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D5AD1686209BEC2F003E1182 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D558CC94208EA65F005A4F85 /* LaunchScreen.storyboard in Resources */,
+				D5AD1685209BEC27003E1182 /* gift.png in Resources */,
 				D558CC91208EA65F005A4F85 /* Assets.xcassets in Resources */,
 				D558CC8C208EA65F005A4F85 /* Main.storyboard in Resources */,
 			);
@@ -140,8 +181,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D558CC8F208EA65F005A4F85 /* AylaFernandes.xcdatamodeld in Sources */,
-				D558CC89208EA65F005A4F85 /* ViewController.swift in Sources */,
+				D558CCAF20914160005A4F85 /* ProductTableViewController.swift in Sources */,
+				D558CCB12091418C005A4F85 /* ProductTableViewCell.swift in Sources */,
+				D5AD1688209C2016003E1182 /* StatesTableViewCell.swift in Sources */,
+				D558CC89208EA65F005A4F85 /* ShoppingViewController.swift in Sources */,
+				D558CCA620902C70005A4F85 /* AddEditViewController.swift in Sources */,
+				D558CC9E208EC933005A4F85 /* TaxesViewController.swift in Sources */,
+				D558CCAA209044D3005A4F85 /* UIViewController+CoreData.swift in Sources */,
 				D558CC87208EA65F005A4F85 /* AppDelegate.swift in Sources */,
+				D558CC9C208EC8ED005A4F85 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +332,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aylafernandes.AylaFernandes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -298,7 +346,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aylafernandes.AylaFernandes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

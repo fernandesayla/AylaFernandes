@@ -1,0 +1,45 @@
+
+/* Class = "UITabBarItem"; title = "Compras"; ObjectID = "2N4-Ie-Jd2"; */
+"2N4-Ie-Jd2.title" = "Compras";
+
+/* Class = "UIBarButtonItem"; title = "+"; ObjectID = "9kq-f6-E7N"; */
+"9kq-f6-E7N.title" = "+";
+
+/* Class = "UILabel"; text = "Total em R$:"; ObjectID = "CSl-pI-mno"; */
+"CSl-pI-mno.text" = "Total em R$:";
+
+/* Class = "UIView"; accessibilityLabel = "ff"; ObjectID = "IzS-CQ-vc4"; */
+"IzS-CQ-vc4.accessibilityLabel" = "ff";
+
+/* Class = "UINavigationItem"; title = "Lista de Compras"; ObjectID = "JkF-7d-eg4"; */
+"JkF-7d-eg4.title" = "Lista de Compras";
+
+/* Class = "UIButton"; normalTitle = "Adicionar Estado"; ObjectID = "LAg-zG-0Ex"; */
+"LAg-zG-0Ex.normalTitle" = "Adicionar Estado";
+
+/* Class = "UITabBarItem"; title = "Ajustes"; ObjectID = "MBW-O0-c3J"; */
+"MBW-O0-c3J.title" = "Ajustes";
+
+/* Class = "UILabel"; text = "Cotação do dólar (R$):"; ObjectID = "NUt-TQ-lDE"; */
+"NUt-TQ-lDE.text" = "Cotação do dólar (R$):";
+
+/* Class = "UINavigationItem"; title = "Produtos"; ObjectID = "Vtg-jj-koZ"; */
+"Vtg-jj-koZ.title" = "Produtos";
+
+/* Class = "UILabel"; text = "5,555.00"; ObjectID = "afm-I9-ry6"; */
+"afm-I9-ry6.text" = "5,555.00";
+
+/* Class = "UINavigationItem"; title = "Ajustes"; ObjectID = "dRj-kW-a9F"; */
+"dRj-kW-a9F.title" = "Ajustes";
+
+/* Class = "UILabel"; text = "IOF (%):"; ObjectID = "gZU-op-n2n"; */
+"gZU-op-n2n.text" = "IOF (%):";
+
+/* Class = "UILabel"; text = "Total em U$:"; ObjectID = "hYC-Rh-Z0e"; */
+"hYC-Rh-Z0e.text" = "Total em U$:";
+
+/* Class = "UILabel"; text = "Impostos por estado"; ObjectID = "iSa-kZ-1Kf"; */
+"iSa-kZ-1Kf.text" = "Impostos por estado";
+
+/* Class = "UILabel"; text = "5.555,00"; ObjectID = "xrA-QS-Mcp"; */
+"xrA-QS-Mcp.text" = "5.555,00";
