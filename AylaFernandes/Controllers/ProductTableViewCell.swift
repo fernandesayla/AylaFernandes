@@ -13,12 +13,10 @@ class ProductTableViewCell: UITableViewCell {
    
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var ivProduct: UIImageView!
-    
-    
     @IBOutlet weak var lbDollarPrice: UILabel!
     
     
-    
+    var tc  = TaxesCalculator.shared
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +31,7 @@ class ProductTableViewCell: UITableViewCell {
 
     func prepare(with product: Product){
         lbName.text = product.name
-        lbDollarPrice.text = String(format: "%.2f", product.dollarPrice)
+        lbDollarPrice.text =  tc.getFormattedValue(of: product.dollarPrice, with: "")
        
         if let image = product.image as? UIImage {
             ivProduct.image = image

@@ -12,24 +12,32 @@ import CoreData
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var lbDollarExchangeRate: UITextField!
-    @IBOutlet weak var lbIOF: UITextField!
-    
-
+    @IBOutlet weak var tfDollarExchangeRate: UITextField!
+    @IBOutlet weak var tfIOF: UITextField!
+   
     var label = UILabel()
-    
-     var state: States!
+    var state: States!
     var  sm = StateManager.shared
+    var  config = Settings.shared
     
     override func viewDidLoad() {
+    
         super.viewDidLoad()
         
         loadStates()
         label.sizeToFit()
         label.textAlignment = .center;
         label.text = "Sua lista está vazia!"
-        // Do any additional setup after loading the view.
+      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        formatView()
+    }
+    
+    func formatView(){
+        tfIOF.text = tc.getFormattedValue(of: config.iof, with: "")
+        tfDollarExchangeRate.text =   tc.getFormattedValue(of: config.dollarExchangeRate, with: "")
     }
     
     func loadStates(){
@@ -39,7 +47,7 @@ class SettingsViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+  
     }
     
     
@@ -50,12 +58,15 @@ class SettingsViewController: UIViewController {
         
         alert.addTextField { (textField) in
             textField.placeholder = "Nome do Estado"
+            textField.keyboardType = .decimalPad
+            
             if let name = state?.name{
                 textField.text = name
             }
         }
         alert.addTextField { (textFieldTax) in
             textFieldTax.placeholder = "Taxa do Estado"
+            textFieldTax.keyboardType = .decimalPad
             if let tax =  state?.tax{
                 textFieldTax.text = String(tax)
             }
@@ -125,18 +136,3 @@ extension SettingsViewController: UITableViewDataSource{
 extension SettingsViewController: UITableViewDelegate{
     
 }
-//extension SettingsViewController: NSFetchedResultsControllerDelegate{
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .delete:
-//            if let indexPath = indexPath{
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//                print("deletou")
-//            }
-//            break
-//        default:
-//            tableView.reloadData()
-//        }
-//    }
-//}
-

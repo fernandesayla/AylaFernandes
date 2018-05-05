@@ -14,7 +14,7 @@ class StatesTableViewCell: UITableViewCell {
     @IBOutlet weak var lbTax: UILabel!
     
     
-    
+    var tc  = TaxesCalculator.shared
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,8 +28,7 @@ class StatesTableViewCell: UITableViewCell {
 
     func prepare(with state: States){
         lbState.text = state.name
-        lbTax.text = String(format: "%.2f", state.tax)
+        lbTax.text =  tc.getFormattedValue(of: state.tax, with: "")
  
-        
     }
 }

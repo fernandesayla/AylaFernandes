@@ -12,6 +12,7 @@ import CoreData
 class AddEditViewController: UIViewController {
     
     
+    @IBOutlet weak var btnAddEdit: UIButton!
     @IBOutlet weak var tfName: UITextField!
     @IBOutlet weak var ivImage: UIImageView!
     @IBOutlet weak var tfState: UITextField!
@@ -40,6 +41,9 @@ class AddEditViewController: UIViewController {
         tfState.inputView = pickerView
         tfState.inputAccessoryView = toolBar
         
+   
+        
+        
     }
     @objc func cancel(){
         tfState.resignFirstResponder()
@@ -55,6 +59,7 @@ class AddEditViewController: UIViewController {
            if segue.identifier == "productSegue" {
         let vc = segue.destination as! AddEditViewController
         vc.product = product
+            
         }
     }
     
@@ -67,7 +72,10 @@ class AddEditViewController: UIViewController {
         
         if product != nil {
            prepareTela()
+           btnAddEdit.setTitle("Atualizar", for: .normal)
+            print(tc.calculateProductRealValue(of: product))
         }
+       
         
        
     }
@@ -75,7 +83,8 @@ class AddEditViewController: UIViewController {
     func prepareTela(){
         tfName.text = product.name
         tfState.text = product.state?.name
-        tfDollarPrice.text =  String(product.dollarPrice) // tc.getFormattedValue(of: product.dollarPrice, with: "US$ ")
+        tfDollarPrice.text = tc.getFormattedValue(of: product.dollarPrice, with: "")
+        swIsCard.isOn = product.paymentMethod
         if let image = product.image as? UIImage {
         ivImage.image = image
         }else{
@@ -130,7 +139,8 @@ class AddEditViewController: UIViewController {
         product?.image = image
         product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
         product?.paymentMethod = swIsCard.isOn
-        product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
+        print(product.paymentMethod)
+       // product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
         if !tfState.text!.isEmpty{
              let state = sm.states[pickerView.selectedRow(inComponent: 0)]
              product.state  = state
@@ -148,14 +158,11 @@ class AddEditViewController: UIViewController {
     
     
     
-    @IBAction func addState(_ sender: UIButton) {
-        
-        
-    }
+ 
     
 }
 extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+   @objc  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let size = CGSize(width: image.size.width*0.2, height: image.size.height*0.2)
