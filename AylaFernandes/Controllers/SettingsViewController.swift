@@ -49,25 +49,33 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     func showAlert(with state: States?){
 
         let title = state == nil ? "Adicionar"  : "Editar"
         let alert = UIAlertController(title: title + " Estado", message: nil, preferredStyle: .alert)
+        
         alert.addTextField { (textField) in
             textField.placeholder = "Nome do Estado"
             if let name = state?.name{
                 textField.text = name
             }
         }
-        alert.addTextField { (textField) in
-            textField.placeholder = "Taxa do Estado"
-//            if let tax = String(format: "%.2f", (state?.tax)!){
-//                textField.text = tax
-//            }
+        alert.addTextField { (textFieldTax) in
+            textFieldTax.placeholder = "Taxa do Estado"
+            if let tax =  state?.tax{
+                textFieldTax.text = String(tax)
+            }
         }
         alert.addAction(UIAlertAction(title: title, style: .default, handler: { (action) in
             let state = state ?? States(context: self.context)
-            alert.textFields?.first?.text
+            
+            state.name = alert.textFields?.first?.text
+            if let tax = alert.textFields?[1].text {
+                state.tax =  self.tc.convertToDoble(tax)
+            }
+            
+           
             do{
                 try self.context.save()
                 self.loadStates()
@@ -97,7 +105,20 @@ extension SettingsViewController: UITableViewDataSource{
         
         return count
     }
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            // tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            guard let state = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
+            do {
+                context.delete(state)
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! StatesTableViewCell
 
@@ -132,7 +153,9 @@ extension SettingsViewController: NSFetchedResultsControllerDelegate{
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
-            //algo se deleta
+            if let indexPath = indexPath{
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
             break
         default:
             tableView.reloadData()

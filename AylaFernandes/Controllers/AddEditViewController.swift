@@ -16,17 +16,50 @@ class AddEditViewController: UIViewController {
     @IBOutlet weak var ivImage: UIImageView!
     @IBOutlet weak var tfState: UITextField!
     @IBOutlet weak var tfDollarPrice: UITextField!
-
     @IBOutlet weak var swIsCard: UISwitch!
-    
     var product: Product!
-    
     var image: UIImage?
     
+    lazy var pickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        return pickerView
+        }()
+//    var settingsViewController: SettingsViewController.shared
+  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           if segue.identifier == "productSegue" {
+        let vc = segue.destination as! AddEditViewController
+        vc.product = product
+        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if product != nil {
+           prepareTela()
+        }
+        
+       
+    }
+    
+    func prepareTela(){
+        tfName.text = product.name
+        tfState.text = product.state?.name
+        tfDollarPrice.text =  String(product.dollarPrice) // tc.getFormattedValue(of: product.dollarPrice, with: "US$ ")
+        if let image = product.image as? UIImage {
+        ivImage.image = image
+        }else{
+        ivImage.image = UIImage(named: "gift")
+    }
+    
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -72,9 +105,9 @@ class AddEditViewController: UIViewController {
         }
         product?.name = tfName.text
         product?.image = image
-        product?.dollarPrice = Double(tfDollarPrice.text!)!
+        product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
         product?.paymentMethod = swIsCard.isOn
-        // product?.realPrice implementar conversão
+        product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
         //product?.state implementar seleção
         
         do {
@@ -109,5 +142,14 @@ extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationCo
         dismiss(animated: true, completion: nil)
         
     }
+}
+extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 100
+    }
+    
 }
 

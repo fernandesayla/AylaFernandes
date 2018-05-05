@@ -34,7 +34,12 @@ class ProductTableViewCell: UITableViewCell {
     func prepare(with product: Product){
         lbName.text = product.name
         lbDollarPrice.text = String(format: "%.2f", product.dollarPrice)
-       // ivProduct.image = product.image 
+       
+        if let image = product.image as? UIImage {
+            ivProduct.image = image
+        }else{
+            ivProduct.image = UIImage(named: "gift")
+        }
         
     }
     
