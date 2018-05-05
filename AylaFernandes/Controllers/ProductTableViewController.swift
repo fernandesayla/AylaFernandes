@@ -12,23 +12,20 @@ import CoreData
 
 class ProductTableViewController: UITableViewController {
     
-    //let products: [Product] = []
     var fetchedResultController: NSFetchedResultsController<Product>!
     var label = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadProducts()
-        
+       
+         loadProducts()
         label.text = "Sua lista está vazia!"
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "productSegue" {
             let vc = segue.destination as! AddEditViewController
@@ -64,7 +61,7 @@ class ProductTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
         let count = fetchedResultController.fetchedObjects?.count ?? 0
         tableView.backgroundView = count == 0 ? label : nil
         return count
@@ -80,9 +77,7 @@ class ProductTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            // tableView.deleteRows(at: [indexPath], with: .fade)
-            
+          
             guard let product = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
             do {
                 context.delete(product)
@@ -104,7 +99,7 @@ extension ProductTableViewController: NSFetchedResultsControllerDelegate{
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
             case .delete:
-                //algo se deleta
+              
                 if let indexPath = indexPath{
                     tableView.deleteRows(at: [indexPath], with: .fade)
             }

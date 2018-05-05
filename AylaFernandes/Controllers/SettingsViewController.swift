@@ -16,34 +16,25 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var lbDollarExchangeRate: UITextField!
     @IBOutlet weak var lbIOF: UITextField!
     
-    var fetchedResultController: NSFetchedResultsController<States>!
+
     var label = UILabel()
     
      var state: States!
-    
+    var  sm = StateManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStates()
         
+        loadStates()
         label.text = "Sua lista está vazia!"
         // Do any additional setup after loading the view.
     }
+    
     func loadStates(){
-        let fetchRequest: NSFetchRequest<States> = States.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultController.delegate = self
-        
-        do{
-            try fetchedResultController.performFetch()
-        }catch{
-            print(error.localizedDescription)
-        }
-        
+        sm.loadStates(with: context)
+        tableView.reloadData()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,11 +65,11 @@ class SettingsViewController: UIViewController {
             if let tax = alert.textFields?[1].text {
                 state.tax =  self.tc.convertToDoble(tax)
             }
-            
            
             do{
                 try self.context.save()
-                self.loadStates()
+                  self.loadStates()
+                
             }catch{
                 print(error.localizedDescription)
             }
@@ -87,7 +78,7 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
-        
+           
     }
     
     @IBAction func addEditState(_ sender: Any) {
@@ -100,7 +91,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = fetchedResultController.fetchedObjects?.count ?? 0
+        let count = sm.states.count
         tableView.backgroundView = count == 0 ? label : nil
         
         return count
@@ -108,58 +99,42 @@ extension SettingsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            // tableView.deleteRows(at: [indexPath], with: .fade)
+
+            sm.deleteState(index: indexPath.row, context: context)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
-            guard let state = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
-            do {
-                context.delete(state)
-                try context.save()
-            } catch {
-                print(error.localizedDescription)
-            }
+           
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let state = sm.states[indexPath.row]
+        showAlert(with: state)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! StatesTableViewCell
-
-                guard let state = fetchedResultController.fetchedObjects?[indexPath.row] else {
-                    return cell
-                }
-
+                let state = sm.states[indexPath.row]
                 cell.prepare(with: state)
-
                 return cell
     }
-    
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StatesTableViewCell
-//
-//        guard let state = fetchedResultController.fetchedObjects?[indexPath.row] else {
-//            return cell
-//        }
-//
-//        cell.prepare(with: state)
-//
-//        return cell
-//    }
     
 }
 
 extension SettingsViewController: UITableViewDelegate{
     
 }
-extension SettingsViewController: NSFetchedResultsControllerDelegate{
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .delete:
-            if let indexPath = indexPath{
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            break
-        default:
-            tableView.reloadData()
-        }
-    }
-}
+//extension SettingsViewController: NSFetchedResultsControllerDelegate{
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch type {
+//        case .delete:
+//            if let indexPath = indexPath{
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//                print("deletou")
+//            }
+//            break
+//        default:
+//            tableView.reloadData()
+//        }
+//    }
+//}
 

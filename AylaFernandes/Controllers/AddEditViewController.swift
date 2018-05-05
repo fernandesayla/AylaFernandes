@@ -27,13 +27,30 @@ class AddEditViewController: UIViewController {
         return pickerView
         }()
 //    var settingsViewController: SettingsViewController.shared
-  
+    var  sm = StateManager.shared
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        let btnCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        let btnDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let btnFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil , action: nil)
         
-        
+        toolBar.items = [btnCancel, btnFlexibleSpace, btnDone]
+        tfState.inputView = pickerView
+        tfState.inputAccessoryView = toolBar
         
     }
+    @objc func cancel(){
+        tfState.resignFirstResponder()
+    }
+    
+    @objc func done(){
+        tfState.text = sm.states[pickerView.selectedRow(inComponent: 0)].name
+        cancel()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "productSegue" {
         let vc = segue.destination as! AddEditViewController
@@ -42,6 +59,12 @@ class AddEditViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        sm.loadStates(with: context)
+        
+        
+        
         if product != nil {
            prepareTela()
         }
@@ -108,7 +131,11 @@ class AddEditViewController: UIViewController {
         product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
         product?.paymentMethod = swIsCard.isOn
         product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
-        //product?.state implementar seleção
+        if !tfState.text!.isEmpty{
+             let state = sm.states[pickerView.selectedRow(inComponent: 0)]
+             product.state  = state
+        }
+       
         
         do {
             try context .save()
@@ -148,7 +175,14 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 100
+        return sm.states.count
+
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+      
+            let state = sm.states[row]
+            return state.name
+        
     }
     
 }
