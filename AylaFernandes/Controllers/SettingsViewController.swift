@@ -26,6 +26,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         loadStates()
+        label.sizeToFit()
+        label.textAlignment = .center;
         label.text = "Sua lista está vazia!"
         // Do any additional setup after loading the view.
     }

@@ -17,8 +17,9 @@ class ProductTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
          loadProducts()
+        label.sizeToFit()
+        label.textAlignment = .center;
         label.text = "Sua lista está vazia!"
 
     }
