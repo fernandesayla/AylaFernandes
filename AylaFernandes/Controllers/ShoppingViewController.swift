@@ -24,7 +24,7 @@ class ShoppingViewController: UIViewController {
         var amountDollar: Double = 0.0
         for product in fetchedResultController.fetchedObjects! {
             amountReals += tc.calculateProductRealValue(of: product)
-            amountDollar += product.dollarPrice + (product.dollarPrice * ((product.state?.tax)!/100))
+            amountDollar += product.dollarPrice 
         }
         lbTotalDollars.text = tc.getFormattedValue(of: amountDollar, with: "")
         lbTotalReals.text = tc.getFormattedValue(of: amountReals, with: "")

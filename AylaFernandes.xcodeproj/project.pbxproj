@@ -23,7 +23,6 @@
 		D558CCAA209044D3005A4F85 /* UIViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCA9209044D3005A4F85 /* UIViewController+CoreData.swift */; };
 		D558CCAF20914160005A4F85 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCAE20914160005A4F85 /* ProductTableViewController.swift */; };
 		D558CCB12091418C005A4F85 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558CCB02091418C005A4F85 /* ProductTableViewCell.swift */; };
-		D56BC0D4209E6327009DB488 /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56BC0D3209E6327009DB488 /* ProductManager.swift */; };
 		D5AD1688209C2016003E1182 /* StatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD1687209C2016003E1182 /* StatesTableViewCell.swift */; };
 		D5DEAC61209D97C800F6AD23 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DEAC60209D97C800F6AD23 /* Settings.swift */; };
 /* End PBXBuildFile section */
@@ -47,7 +46,6 @@
 		D558CCA9209044D3005A4F85 /* UIViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CoreData.swift"; sourceTree = "<group>"; };
 		D558CCAE20914160005A4F85 /* ProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
 		D558CCB02091418C005A4F85 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
-		D56BC0D3209E6327009DB488 /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
 		D5AD1687209C2016003E1182 /* StatesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesTableViewCell.swift; sourceTree = "<group>"; };
 		D5DEAC60209D97C800F6AD23 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +115,6 @@
 				D54D33EE209CAABA007D8371 /* UIViewController+TaxesCalculator.swift */,
 				D54D33F2209D6D10007D8371 /* StatesManager.swift */,
 				D5408CC2209C99EE002383F4 /* TaxesCalculator.swift */,
-				D56BC0D3209E6327009DB488 /* ProductManager.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -204,7 +201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54D33EF209CAABA007D8371 /* UIViewController+TaxesCalculator.swift in Sources */,
-				D56BC0D4209E6327009DB488 /* ProductManager.swift in Sources */,
 				D558CC8F208EA65F005A4F85 /* AylaFernandes.xcdatamodeld in Sources */,
 				D54D33F3209D6D10007D8371 /* StatesManager.swift in Sources */,
 				D558CCAF20914160005A4F85 /* ProductTableViewController.swift in Sources */,
