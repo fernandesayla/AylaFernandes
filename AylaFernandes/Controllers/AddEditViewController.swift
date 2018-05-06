@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Photos
 
 class AddEditViewController: UIViewController {
     
@@ -86,6 +87,7 @@ class AddEditViewController: UIViewController {
         if let image = product.image as? UIImage {
             ivImage.image = image
         }
+      
     
     }
     override func didReceiveMemoryWarning() {
@@ -94,7 +96,7 @@ class AddEditViewController: UIViewController {
     
     
     @IBAction func addImage(_ sender: Any) {
-        let alert = UIAlertController(title: "Selecionar poster", message: "De onde você deseja escolher o poster?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Selecionar Imagem", message: "De onde você deseja escolher a ?", preferredStyle: .actionSheet)
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraAction = UIAlertAction(title: "Câmera", style: .default) { (action) in
@@ -121,10 +123,12 @@ class AddEditViewController: UIViewController {
     }
     
     func selectPicture(sourceType: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = sourceType
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+         checkPermission {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = sourceType
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     @IBAction func addEditProduct(_ sender: UIButton) {
@@ -173,25 +177,37 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
             return state.name
         
     }
-    
-}
-extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let size = CGSize(width: image.size.width*0.2, height: image.size.height*0.2)
-            UIGraphicsBeginImageContext(size)
-            image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            self.image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            ivImage.image = self.image
+    func checkPermission(hanler: @escaping () -> Void) {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            
+            hanler()
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { (newStatus) in
+                if newStatus == PHAuthorizationStatus.authorized {
+                  
+                    hanler()
+                }
+            }
+        default:
+            print("Error: no access to photo album.")
         }
-        
-        dismiss(animated: true, completion: nil)
-        
     }
 }
-
+extension AddEditViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+       
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.dismiss(animated: true) {
+            self.ivImage.image = image
+        }
+    }
+}
 
 
