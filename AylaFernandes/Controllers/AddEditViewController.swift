@@ -18,8 +18,11 @@ class AddEditViewController: UIViewController {
     @IBOutlet weak var tfState: UITextField!
     @IBOutlet weak var tfDollarPrice: UITextField!
     @IBOutlet weak var swIsCard: UISwitch!
+    
+    var image: UIImage?
+    
     var product: Product!
-    var productImage: UIImage?
+
     
     lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -91,7 +94,7 @@ class AddEditViewController: UIViewController {
     
     
     @IBAction func addImage(_ sender: Any) {
-        let alert = UIAlertController(title: "Selecionar imagem", message: "De onde você deseja escolher a imagem?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Selecionar poster", message: "De onde você deseja escolher o poster?", preferredStyle: .actionSheet)
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraAction = UIAlertAction(title: "Câmera", style: .default) { (action) in
@@ -100,13 +103,14 @@ class AddEditViewController: UIViewController {
             alert.addAction(cameraAction)
         }
         
+        
         let libraryAction = UIAlertAction(title: "Biblioteca de fotos", style: .default) { (action) in
             self.selectPicture(sourceType: .photoLibrary)
         }
         alert.addAction(libraryAction)
         
         let photosAction = UIAlertAction(title: "Álbum de fotos", style: .default) { (action) in
-           self.selectPicture(sourceType: .savedPhotosAlbum)
+            self.selectPicture(sourceType: .savedPhotosAlbum)
         }
         alert.addAction(photosAction)
         
@@ -117,13 +121,11 @@ class AddEditViewController: UIViewController {
     }
     
     func selectPicture(sourceType: UIImagePickerControllerSourceType) {
-       
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
-    
     
     @IBAction func addEditProduct(_ sender: UIButton) {
         if !tfName.text!.isEmpty && !tfDollarPrice.text!.isEmpty && !tfState.text!.isEmpty &&  ivImage.image != nil{
@@ -132,21 +134,14 @@ class AddEditViewController: UIViewController {
                 product = Product(context: context)
             }
             product?.name = tfName.text
-         
-            if let image = ivImage.image {
-                 product?.image = image
-            }
-            
-            
+            product?.image =  ivImage.image
             product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
             product?.paymentMethod = swIsCard.isOn
-            print(product.paymentMethod)
-           // product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
+ 
             if !tfState.text!.isEmpty{
                  let state = sm.states[pickerView.selectedRow(inComponent: 0)]
                  product.state  = state
             }
-           
             
             do {
                 try context .save()
@@ -181,20 +176,22 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
 }
 extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let size = CGSize(width: image.size.width*0.2, height: image.size.height*0.2)
             UIGraphicsBeginImageContext(size)
             image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            self.productImage = UIGraphicsGetImageFromCurrentImageContext()
+            self.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            ivImage.image = self.productImage
+            ivImage.image = self.image
         }
         
         dismiss(animated: true, completion: nil)
         
     }
 }
+
 
 
