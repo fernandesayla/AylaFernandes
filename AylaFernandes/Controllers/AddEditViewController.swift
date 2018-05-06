@@ -19,7 +19,7 @@ class AddEditViewController: UIViewController {
     @IBOutlet weak var tfDollarPrice: UITextField!
     @IBOutlet weak var swIsCard: UISwitch!
     var product: Product!
-    var image: UIImage?
+    var productImage: UIImage?
     
     lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -32,6 +32,8 @@ class AddEditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         let btnCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         let btnDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -53,8 +55,6 @@ class AddEditViewController: UIViewController {
         tfState.text = sm.states[pickerView.selectedRow(inComponent: 0)].name
         cancel()
     }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "productSegue" {
         let vc = segue.destination as! AddEditViewController
@@ -68,16 +68,11 @@ class AddEditViewController: UIViewController {
         
         sm.loadStates(with: context)
         
-        
-        
         if product != nil {
            prepareTela()
            btnAddEdit.setTitle("Atualizar", for: .normal)
-            print(tc.calculateProductRealValue(of: product))
-        }
-       
         
-       
+        }
     }
     
     func prepareTela(){
@@ -86,10 +81,10 @@ class AddEditViewController: UIViewController {
         tfDollarPrice.text = tc.getFormattedValue(of: product.dollarPrice, with: "")
         swIsCard.isOn = product.paymentMethod
         if let image = product.image as? UIImage {
-        ivImage.image = image
+            ivImage.image = image
         }else{
         ivImage.image = UIImage(named: "gift")
-    }
+        }
     
     }
     override func didReceiveMemoryWarning() {
@@ -124,6 +119,7 @@ class AddEditViewController: UIViewController {
     }
     
     func selectPicture(sourceType: UIImagePickerControllerSourceType) {
+       
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.delegate = self
@@ -132,49 +128,37 @@ class AddEditViewController: UIViewController {
     
     
     @IBAction func addEditProduct(_ sender: UIButton) {
-        if product == nil {
-            product = Product(context: context)
-        }
-        product?.name = tfName.text
-        product?.image = image
-        product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
-        product?.paymentMethod = swIsCard.isOn
-        print(product.paymentMethod)
-       // product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
-        if !tfState.text!.isEmpty{
-             let state = sm.states[pickerView.selectedRow(inComponent: 0)]
-             product.state  = state
-        }
-       
-        
-        do {
-            try context .save()
-        } catch{
-            print(error.localizedDescription)
-        }
-        navigationController?.popViewController(animated: true)
-        
-    }
-    
-    
-    
- 
-    
-}
-extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-   @objc  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let size = CGSize(width: image.size.width*0.2, height: image.size.height*0.2)
-            UIGraphicsBeginImageContext(size)
-            image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            self.image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            ivImage.image = self.image
+        if !tfName.text!.isEmpty && !tfDollarPrice.text!.isEmpty && !tfState.text!.isEmpty &&  ivImage.image != nil{
+            
+            if product == nil {
+                product = Product(context: context)
+            }
+            product?.name = tfName.text
+            product?.image = productImage
+            product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
+            product?.paymentMethod = swIsCard.isOn
+            print(product.paymentMethod)
+           // product?.realPrice  = tc.calculate(usingCreditCard: swIsCard.isOn)
+            if !tfState.text!.isEmpty{
+                 let state = sm.states[pickerView.selectedRow(inComponent: 0)]
+                 product.state  = state
+            }
+           
+            
+            do {
+                try context .save()
+            } catch{
+                print(error.localizedDescription)
+            }
+            navigationController?.popViewController(animated: true)
         }
         
-        dismiss(animated: true, completion: nil)
-        
+        else {
+            let alert = UIAlertController(title: "Campos Invalidos", message: "Todos os campos precisam ser preenchidos", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    
     }
 }
 extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
@@ -193,4 +177,21 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
 }
+extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let size = CGSize(width: image.size.width*0.2, height: image.size.height*0.2)
+            UIGraphicsBeginImageContext(size)
+            image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            self.productImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            ivImage.image = self.productImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+}
+
 

@@ -15,26 +15,14 @@ class TaxesCalculator {
     let formatter = NumberFormatter()
     
     func calculateProductRealValue(of product: Product) -> Double {
-      
-        
-        var withTaxesValue: Double {
-            return product.dollarPrice * (product.state?.tax)!/100
-        }
-        
-         var finalValue = product.dollarPrice + withTaxesValue
-        
-        
-        var withIofValue: Double {
-            return (product.dollarPrice+withTaxesValue)  * config.iof/100
-            
-        }
-        
+        var total = product.dollarPrice
+        let taxesValue = product.dollarPrice * ((product.state?.tax)!/100)
+        let iofValue = (product.dollarPrice + taxesValue) * (config.iof/100)
+        total += taxesValue
         if product.paymentMethod {
-            finalValue += withIofValue
+            total += iofValue
         }
-       
-           
-        return finalValue * config.dollarExchangeRate
+        return total * config.dollarExchangeRate
     }
     
     func convertToDoble(_ string: String) -> Double{

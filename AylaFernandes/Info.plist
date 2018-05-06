@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
+	<key>Privacy - Photo library Usage Description</key>
 	<string>Preciso acessar a sua biblioteca de fotos</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Preciso de acesso a sua camera</string>

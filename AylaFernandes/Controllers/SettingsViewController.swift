@@ -14,6 +14,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tfDollarExchangeRate: UITextField!
     @IBOutlet weak var tfIOF: UITextField!
+    
+     var fetchedResultController: NSFetchedResultsController<Product>!
    
     var label = UILabel()
     var state: States!

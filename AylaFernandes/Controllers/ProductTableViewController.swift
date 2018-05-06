@@ -85,6 +85,8 @@ class ProductTableViewController: UITableViewController {
             }
         }
     }
+    
+        
 }
 
 
@@ -93,12 +95,10 @@ extension ProductTableViewController: NSFetchedResultsControllerDelegate{
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
             case .delete:
-              
                 if let indexPath = indexPath{
                     tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break
-            
             default:
                 tableView.reloadData()
         }

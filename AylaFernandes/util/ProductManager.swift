@@ -6,38 +6,51 @@
 //  Copyright © 2018 Ayla Fernandes. All rights reserved.
 //
 
+import UIKit
 import CoreData
 
 class ProductManager  {
-//    static let shared =  StateManager()
-//    var fetchedResultController: NSFetchedResultsController<States>!
-//    var states: [Product] = []
-//    private init() {
-//    }
-//    
-//    func loadStates(with context: NSManagedObjectContext ){
-//        let fetchRequest: NSFetchRequest<States> = States.fetchRequest()
-//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
-//        do{
-//            states = try context.fetch(fetchRequest)
-//        }catch{
-//            print(error.localizedDescription)
-//        }
-//        
-//    }
-//    
-//    func deleteState(index: Int, context: NSManagedObjectContext){
-//        let state = states[index]
-//        context.delete(state)
-//        do {
-//            
-//            try context.save()
-//            states.remove(at: index)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
+    
+    
+    static let shared =  ProductManager()
+    
+    var context: NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    var fetchedResultController: NSFetchedResultsController<Product>!
+            var products: [Product] = []
+    
+    
+    func loadProducts(with context: NSManagedObjectContext ){
+        let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        //fetchedResultController.delegate = self
+        
+        do{
+            try fetchedResultController.performFetch()
+        }catch{
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    private init(){
+        
+    }
+    
+ 
 }
+//
+//extension ProductManager : NSFetchedResultsControllerDelegate{
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//
+//    }
+//}
 
 
