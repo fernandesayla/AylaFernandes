@@ -60,7 +60,6 @@ class SettingsViewController: UIViewController {
         
         alert.addTextField { (textField) in
             textField.placeholder = "Nome do Estado"
-            textField.keyboardType = .decimalPad
             
             if let name = state?.name{
                 textField.text = name

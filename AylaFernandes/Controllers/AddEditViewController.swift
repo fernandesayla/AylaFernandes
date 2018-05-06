@@ -71,7 +71,7 @@ class AddEditViewController: UIViewController {
         if product != nil {
            prepareTela()
            btnAddEdit.setTitle("Atualizar", for: .normal)
-        
+            
         }
     }
     
@@ -82,8 +82,6 @@ class AddEditViewController: UIViewController {
         swIsCard.isOn = product.paymentMethod
         if let image = product.image as? UIImage {
             ivImage.image = image
-        }else{
-        ivImage.image = UIImage(named: "gift")
         }
     
     }
@@ -134,7 +132,12 @@ class AddEditViewController: UIViewController {
                 product = Product(context: context)
             }
             product?.name = tfName.text
-            product?.image = productImage
+         
+            if let image = ivImage.image {
+                 product?.image = image
+            }
+            
+            
             product?.dollarPrice = tc.convertToDoble(tfDollarPrice.text!)
             product?.paymentMethod = swIsCard.isOn
             print(product.paymentMethod)
