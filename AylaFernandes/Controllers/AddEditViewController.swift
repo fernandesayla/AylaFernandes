@@ -21,9 +21,8 @@ class AddEditViewController: UIViewController {
     @IBOutlet weak var swIsCard: UISwitch!
     
     var image: UIImage?
-    
     var product: Product!
-
+    var  sm = StateManager.shared
     
     lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -31,12 +30,10 @@ class AddEditViewController: UIViewController {
         pickerView.dataSource = self
         return pickerView
         }()
-//    var settingsViewController: SettingsViewController.shared
-    var  sm = StateManager.shared
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         let btnCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -46,10 +43,7 @@ class AddEditViewController: UIViewController {
         toolBar.items = [btnCancel, btnFlexibleSpace, btnDone]
         tfState.inputView = pickerView
         tfState.inputAccessoryView = toolBar
-        
-   
-        
-        
+    
     }
     @objc func cancel(){
         tfState.resignFirstResponder()
@@ -59,6 +53,7 @@ class AddEditViewController: UIViewController {
         tfState.text = sm.states[pickerView.selectedRow(inComponent: 0)].name
         cancel()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "productSegue" {
         let vc = segue.destination as! AddEditViewController
@@ -73,13 +68,13 @@ class AddEditViewController: UIViewController {
         sm.loadStates(with: context)
         
         if product != nil {
-           prepareTela()
+           prepareView()
            btnAddEdit.setTitle("Atualizar", for: .normal)
             
         }
     }
     
-    func prepareTela(){
+    func prepareView(){
         tfName.text = product.name
         tfState.text = product.state?.name
         tfDollarPrice.text = tc.getFormattedValue(of: product.dollarPrice, with: "")
@@ -93,7 +88,7 @@ class AddEditViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+    /* MARK - Select image*/
     
     @IBAction func addImage(_ sender: Any) {
         let alert = UIAlertController(title: "Selecionar Imagem", message: "De onde você deseja escolher a ?", preferredStyle: .actionSheet)

@@ -43,29 +43,6 @@ class TaxesCalculator {
         formatter.usesGroupingSeparator = true
     }
     
-    //  var shoppingValue: Double = 0
-    
-//    var shoppingValueInReal: Double{
-//        return shoppingValue * dollar
-//    }
-//
-//    var stateTaxValue : Double{
-//        return shoppingValue * stateTAx/100
-//
-//    }
-//    var iofValue: Double {
-//        return shoppingValue * iof/100
-//    }
-//    func calculate(usingCreditCard: Bool) -> Double {
-//        var finalValue = shoppingValue + stateTaxValue
-//        if usingCreditCard {
-//            finalValue += iofValue
-//        }
-//        return finalValue
-//
-//    }
-
-    
-    
+  
     
 }
